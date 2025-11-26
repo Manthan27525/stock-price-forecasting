@@ -12,3 +12,4 @@ scipy
 jupyterlab
 notebook                
 plotly
+keras-tuner
