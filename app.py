@@ -20,7 +20,10 @@ st.write("This app forecasts stock prices using LSTM models.")
 with open("artifacts/tickers.json", "r") as f:
     nifty50 = json.load(f)
 
+future_days = st.slider("Select number of days to forecast", 1, 60, 30)
+look_back = st.slider("Select lookback period (days)", 50, 200, 100)
 ticker = st.selectbox("Select a NIFTY 50 Stock", nifty50)
+
 if st.button("Update Model"):
     model = train(ticker)
     st.success(f"Model for {ticker} trained successfully!")
@@ -29,5 +32,5 @@ elif st.button("Update All Models"):
         train(model_name)
     st.success("All models updated successfully!")
 elif st.button("Forecast Stock Prices"):
-    plot_stock_data(ticker)
+    plot_stock_data(ticker, lookback=look_back, future_days=future_days)
     st.pyplot()

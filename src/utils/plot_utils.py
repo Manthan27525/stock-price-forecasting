@@ -34,7 +34,6 @@ def plot_stock_data(ticker, lookback=100, future_days=30):
         for j in i:
             temp_input.append(j)
 
-    # temp_input = scaled_data.to_list()
     lst_output = []
 
     for _ in range(future_days):
