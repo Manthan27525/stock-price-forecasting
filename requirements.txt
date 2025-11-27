@@ -12,4 +12,5 @@ scipy
 jupyterlab
 notebook                
 plotly
+streamlit
 keras-tuner

@@ -15,6 +15,7 @@ import os
 
 
 def train(model_name):
+    os.makedirs("artifacts/saved_model", exist_ok=True)
     save_stock_data()
     save_preprocessed_data
     x_train, y_train, x_test, y_test = data_loader(model_name)

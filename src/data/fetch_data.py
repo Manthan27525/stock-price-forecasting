@@ -70,6 +70,7 @@ with open("artifacts/tickers.json", "w") as f:
 
 
 def save_stock_data():
+    os.makedirs("artifacts/NIFTY50", exist_ok=True)
     with open("artifacts/tickers.json", "r") as f:
         nifty50 = json.load(f)
     end_date = datetime.now()
