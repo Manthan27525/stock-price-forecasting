@@ -10,7 +10,14 @@ from src.models.save_load import load_model
 import os
 
 
+
 def plot_stock_data(ticker, lookback=100, future_days=30):
+    try:
+    yf.shared._browser = None  # First attempt
+    if hasattr(yf, "scrapers"):
+        yf.scrapers.scrape.headers["User-Agent"] = "Mozilla/5.0"  # Force basic header
+except:
+    pass
     scaler_path = os.path.join("artifacts", "scalers", ticker, "scaler.npy")
 
     with open("artifacts/tickers.json", "r") as f:
@@ -21,7 +28,7 @@ def plot_stock_data(ticker, lookback=100, future_days=30):
 
     end_date = datetime.now()
     start_date = end_date - timedelta(days=20 * 365)
-    yf.shared._browser = None
+    
     stock_data = yf.download(f"{ticker}.NS", start=start_date, end=end_date)
 
     df = preprocess_data(stock_data)
