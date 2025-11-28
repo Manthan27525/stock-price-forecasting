@@ -10,6 +10,7 @@ def fetch_stock_data(
     start_date: str,
     end_date: str,
 ) -> pd.DataFrame:
+    yf.shared._browser = None
     name = yf.download(name, start=start_date, end=end_date)
     return name
 
