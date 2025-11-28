@@ -10,7 +10,12 @@ def fetch_stock_data(
     start_date: str,
     end_date: str,
 ) -> pd.DataFrame:
-    yf.shared._browser = None
+    try:
+    yf.shared._browser = None  # First attempt
+    if hasattr(yf, "scrapers"):
+        yf.scrapers.scrape.headers["User-Agent"] = "Mozilla/5.0"  # Force basic header
+except:
+    pass
     name = yf.download(name, start=start_date, end=end_date)
     return name
 
