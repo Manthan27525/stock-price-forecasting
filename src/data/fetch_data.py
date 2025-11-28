@@ -69,16 +69,16 @@ with open("artifacts/tickers.json", "w") as f:
     json.dump(nifty50, f, indent=4)
 
 
-def save_stock_data():
+def save_stock_data(ticker):
     os.makedirs("artifacts/NIFTY50", exist_ok=True)
     with open("artifacts/tickers.json", "r") as f:
         nifty50 = json.load(f)
     end_date = datetime.now()
     start_date = end_date - timedelta(days=20 * 365)
-    for i in nifty50:
-        data = fetch_stock_data(f"{i}.NS", start_date, end_date)
-        data.to_csv(f"artifacts/NIFTY50/{i}.csv")
+    data = fetch_stock_data(f"{ticker}.NS", start_date, end_date)
+    data.to_csv(f"artifacts/NIFTY50/{ticker}.csv")
 
 
 if __name__ == "__main__":
-    save_stock_data()
+    for ticker in nifty50:
+        save_stock_data(ticker)

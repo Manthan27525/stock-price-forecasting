@@ -1,5 +1,5 @@
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout
+from tensorflow.keras.layers import LSTM, Dense, Dropout, Input
 import keras_tuner as kt
 
 
@@ -39,5 +39,27 @@ def tuned_lstm_model(x_train, y_train, x_test, y_test):
     tuner.search(x_train, y_train, epochs=50, validation_data=(x_test, y_test))
     best_hps = tuner.get_best_hyperparameters(num_trials=1)[0]
     model = build_lstm_model(best_hps)
+
+    return model
+
+
+def simple_lstm_model(x_train, y_train, x_test, y_test):
+    x_train = x_train.reshape((x_train.shape[0], x_train.shape[1], 1))
+    x_test = x_test.reshape((x_test.shape[0], x_test.shape[1], 1))
+
+    model = Sequential()
+    model.add(Input(shape=(x_train.shape[1], 1)))
+    model.add(LSTM(50, return_sequences=True))
+    model.add(Dropout(0.2))
+
+    model.add(LSTM(50, return_sequences=True))  # <-- FIXED
+    model.add(Dropout(0.2))
+
+    model.add(LSTM(50, return_sequences=False))  # Last LSTM → False
+    model.add(Dropout(0.2))
+
+    model.add(Dense(1))
+
+    model.compile(optimizer="adam", loss="mean_squared_error")
 
     return model
