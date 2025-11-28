@@ -21,6 +21,7 @@ def plot_stock_data(ticker, lookback=100, future_days=30):
 
     end_date = datetime.now()
     start_date = end_date - timedelta(days=20 * 365)
+    yf.shared._browser = None
     stock_data = yf.download(f"{ticker}.NS", start=start_date, end=end_date)
 
     df = preprocess_data(stock_data)
