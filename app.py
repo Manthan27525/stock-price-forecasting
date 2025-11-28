@@ -31,5 +31,5 @@ elif st.button("Tune All Models"):
         train(model_name)
     st.success("All models updated successfully!")
 elif st.button("Forecast Stock Prices"):
-    plot_stock_data(ticker, lookback=100, future_days=future_days)
-    st.pyplot()
+    fig=plot_stock_data(ticker, lookback=100, future_days=future_days)
+    st.pyplot(fig)
