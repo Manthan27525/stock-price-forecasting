@@ -13,5 +13,3 @@ jupyterlab
 notebook                
 plotly
 streamlit
-fastapi
-uvicorn
