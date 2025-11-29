@@ -12,12 +12,7 @@ import os
 
 
 def plot_stock_data(ticker, lookback=100, future_days=30):
-    try:
-        yf.shared._browser = None  # First attempt
-        if hasattr(yf, "scrapers"):
-            yf.scrapers.scrape.headers["User-Agent"] = "Mozilla/5.0"  # Force basic header
-    except:
-        pass
+    
     scaler_path = os.path.join("artifacts", "scalers", ticker, "scaler.npy")
 
     with open("artifacts/tickers.json", "r") as f:
