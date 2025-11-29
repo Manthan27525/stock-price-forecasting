@@ -13,4 +13,5 @@ jupyterlab
 notebook                
 plotly
 streamlit
-keras-tuner
+fastapi
+uvicorn
